@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "dev/restate/ext.proto";
+import "google/protobuf/empty.proto";
+
+package org.gigachad;
+
+service ReminderService {
+
+  option (dev.restate.ext.service_type) = KEYED;
+
+  rpc Remind(RemindRequest) returns (google.protobuf.Empty) {};
+  rpc Remove(RemoveRequest) returns (google.protobuf.Empty) {};
+}
+
+message RemindRequest {
+  string schedule_id = 1 [ (dev.restate.ext.field) = KEY ];
+  string user_last_name = 2;
+  string workout_name = 3;
+  string email = 4;
+  repeated Exercise exercises = 5;
+};
+
+message Exercise {
+  string name = 1;
+  string rest_time = 2;
+  repeated Set sets = 3;
+};
+
+message Set {
+  int32 reps = 1;
+  int32 kg = 2;
+  string duration = 3;
+  int32 km = 4;
+};
+
+message RemoveRequest {
+  string schedule_id = 1 [ (dev.restate.ext.field) = KEY ];
+};
