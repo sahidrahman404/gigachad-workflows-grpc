@@ -2,6 +2,6 @@
 # 'buf' is used by default when calling 'npm run proto'
 # If you use protoc instead, you can ignore (or delete) this file
 version: v1
+name: buf.build/sahidrahman/gigachadapis
 deps:
   - buf.build/restatedev/proto
-
