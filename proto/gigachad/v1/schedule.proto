@@ -2,9 +2,9 @@ syntax = "proto3";
 
 import "dev/restate/ext.proto";
 import "google/protobuf/empty.proto";
-import "reminder.proto";
+import "gigachad/v1/reminder.proto";
 
-package org.gigachad;
+package gigachad.v1;
 
 service ScheduleService {
 
@@ -15,7 +15,7 @@ service ScheduleService {
 
 message CreateScheduleRequest {
   repeated Schedule schedules = 1;
-  RemindRequest remind_request = 2;
+  AddReminderRequest add_reminder_request = 2;
   string schedule_id = 3;
 }
 

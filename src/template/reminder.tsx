@@ -11,13 +11,13 @@ import {
   Text,
 } from "@react-email/components";
 import * as React from "react";
-import { RemindRequest } from "../generated/proto/reminder";
+import { AddReminderRequest } from "../generated/proto/gigachad/v1/reminder";
 
 function WorkoutReminderEmail({
   userLastName,
   workoutName,
   exercises,
-}: RemindRequest) {
+}: AddReminderRequest) {
   return (
     <Html>
       <Head />
@@ -42,7 +42,7 @@ function WorkoutReminderEmail({
                   {name}
                 </Heading>
                 <Text style={{ ...text, marginTop: "0" }}>
-                  Rest Time: {restTime}
+                  Rest Time: {restTime === "" ? "-" : restTime}
                 </Text>
                 <Row>
                   <Column style={{ width: "25%", fontWeight: "bold" }}>
@@ -69,7 +69,7 @@ function WorkoutReminderEmail({
                         {kg === 0 ? "-" : kg}
                       </Column>
                       <Column style={{ width: "25%" }}>
-                        {duration ?? "-"}
+                        {duration === "" ? "-" : duration}
                       </Column>
                     </Row>
                   );

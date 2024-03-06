@@ -3,25 +3,25 @@ import { Empty } from "./generated/proto/google/protobuf/empty";
 import { WEEKLY_INTERVAL } from "./utils/getBaseMilliseconds";
 import { sendWorkoutReminder } from "./email";
 import {
-  RemindRequest,
+  AddReminderRequest,
   ReminderService,
   ReminderServiceClientImpl,
-  RemoveRequest,
-} from "./generated/proto/reminder";
+  RemoveReminderRequest,
+} from "./generated/proto/gigachad/v1/reminder";
 
 class ReminderSvc implements ReminderService {
-  async remind(request: RemindRequest): Promise<Empty> {
+  async addReminder(request: AddReminderRequest): Promise<Empty> {
     const ctx = restate.useContext(this);
 
     const removed = (await ctx.get<boolean>("REMOVED")) ?? false;
     if (!removed) {
       await sendWorkoutReminder(request);
       const client = new ReminderServiceClientImpl(ctx);
-      await ctx.delayedCall(() => client.remind(request), WEEKLY_INTERVAL);
+      await ctx.delayedCall(() => client.addReminder(request), WEEKLY_INTERVAL);
     }
     return {};
   }
-  async remove(_: RemoveRequest): Promise<Empty> {
+  async removeReminder(_: RemoveReminderRequest): Promise<Empty> {
     const ctx = restate.useContext(this);
     ctx.set<boolean>("REMOVED", true);
     return {};

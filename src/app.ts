@@ -2,8 +2,8 @@ import * as restate from "@restatedev/restate-sdk";
 
 import { ReminderSvc } from "./reminder_service";
 import { ScheduleSvc } from "./schedule_service";
-import { protoMetadata as protoReminder } from "./generated/proto/reminder";
-import { protoMetadata as protoSchedule } from "./generated/proto/schedule";
+import { protoMetadata as protoReminder } from "./generated/proto/gigachad/v1/reminder";
+import { protoMetadata as protoSchedule } from "./generated/proto/gigachad/v1/schedule";
 
 // Create the Restate server to accept requests to the service(s)
 restate

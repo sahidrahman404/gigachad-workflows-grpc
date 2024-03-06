@@ -1,9 +1,9 @@
 import { render } from "@react-email/render";
 import nodemailer from "nodemailer";
 import { WorkoutReminderEmail } from "./template/reminder";
-import { RemindRequest } from "./generated/proto/reminder";
+import { AddReminderRequest } from "./generated/proto/gigachad/v1/reminder";
 
-async function sendWorkoutReminder(payload: RemindRequest) {
+async function sendWorkoutReminder(payload: AddReminderRequest) {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
