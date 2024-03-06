@@ -16,7 +16,6 @@ service ScheduleService {
 message CreateScheduleRequest {
   repeated Schedule schedules = 1;
   AddReminderRequest add_reminder_request = 2;
-  string schedule_id = 3;
 }
 
 message Schedule {

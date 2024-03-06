@@ -10,13 +10,13 @@ import { ReminderServiceClientImpl } from "./generated/proto/gigachad/v1/reminde
 class ScheduleSvc implements ScheduleService {
   async createSchedule(request: CreateScheduleRequest): Promise<Empty> {
     const ctx = restate.useContext(this);
-    const { scheduleId, schedules, addReminderRequest } = request;
+    const { schedules, addReminderRequest } = request;
     for (const schedule of schedules) {
       if (addReminderRequest) {
         const base = getBaseMilliseconds(schedule);
         const client = new ReminderServiceClientImpl(ctx);
         await ctx.delayedCall(
-          () => client.addReminder({ ...addReminderRequest, scheduleId }),
+          () => client.addReminder({ ...addReminderRequest }),
           base,
         );
       }
