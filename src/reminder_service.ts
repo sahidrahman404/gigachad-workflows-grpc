@@ -15,7 +15,9 @@ class ReminderSvc implements ReminderService {
 
     const removed = (await ctx.get<boolean>("REMOVED")) ?? false;
     if (!removed) {
-      await sendWorkoutReminder(request);
+      await ctx.sideEffect(async () => await sendWorkoutReminder(request), {
+        maxRetries: 1,
+      });
       const client = new ReminderServiceClientImpl(ctx);
       await ctx.delayedCall(() => client.addReminder(request), WEEKLY_INTERVAL);
     }
