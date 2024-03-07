@@ -17,9 +17,9 @@ async function sendWorkoutReminder(payload: AddReminderRequest) {
   const emailtext = render(WorkoutReminderEmail(payload), { plainText: true });
 
   const options = {
-    from: "reminder@gigachad.buzz",
+    from: "Weekly Workout Reminder <reminder@gigachad.buzz>",
     to: payload.email,
-    subject: "Your Daily Workout Reminder",
+    subject: "Your Weekly Workout Reminder",
     html: emailHtml,
     text: emailtext,
   };

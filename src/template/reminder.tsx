@@ -28,7 +28,7 @@ function WorkoutReminderEmail({
           <Text style={{ ...text }}>
             We hope you're ready to tackle another fantastic day of workouts and
             make progress towards your fitness goals! This email is to remind
-            you about your daily workout scheduled in our fitness tracking app.
+            you about your weekly workout scheduled in our fitness tracking app.
             Get ready to sweat and push yourself to new heights!
           </Text>
           <Text style={{ ...text }}>Workout Details:</Text>
@@ -61,7 +61,7 @@ function WorkoutReminderEmail({
                 {sets.map(({ reps, kg, duration }, i) => {
                   return (
                     <Row style={{ marginTop: "12px" }} key={i}>
-                      <Column style={{ width: "25%" }}>{i}</Column>
+                      <Column style={{ width: "25%" }}>{i + 1}</Column>
                       <Column style={{ width: "25%" }}>
                         {reps === 0 ? "-" : reps}
                       </Column>
