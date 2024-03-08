@@ -7,7 +7,7 @@ import { protoMetadata as protoSchedule } from "./generated/proto/gigachad/v1/sc
 
 // Create the Restate server to accept requests to the service(s)
 restate
-  .createServer()
+  .endpoint()
   .bindService({
     service: "ScheduleService", // public name of the service, must match the name in the .proto definition
     instance: new ScheduleSvc(), // the instance of the implementation

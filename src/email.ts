@@ -1,30 +1,49 @@
 import { render } from "@react-email/render";
-import nodemailer from "nodemailer";
+import nodemailer, { Transporter } from "nodemailer";
 import { WorkoutReminderEmail } from "./template/reminder";
 import { AddReminderRequest } from "./generated/proto/gigachad/v1/reminder";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-async function sendWorkoutReminder(payload: AddReminderRequest) {
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    auth: {
-      user: process.env.SMTP_USERNAME,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
+type SendEmailOptions = {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+};
 
-  const emailHtml = render(WorkoutReminderEmail(payload));
-  const emailtext = render(WorkoutReminderEmail(payload), { plainText: true });
+class Email {
+  transporter: Transporter<SMTPTransport.SentMessageInfo>;
 
-  const options = {
-    from: "Weekly Workout Reminder <reminder@gigachad.buzz>",
-    to: payload.email,
-    subject: "Your Weekly Workout Reminder",
-    html: emailHtml,
-    text: emailtext,
-  };
+  constructor() {
+    this.transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      auth: {
+        user: process.env.SMTP_USERNAME,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+  }
 
-  return await transporter.sendMail(options);
+  async sendEmail(options: SendEmailOptions) {
+    return await this.transporter.sendMail(options);
+  }
+
+  async sendWorkoutReminder(payload: AddReminderRequest) {
+    const emailHtml = render(WorkoutReminderEmail(payload));
+    const emailtext = render(WorkoutReminderEmail(payload), {
+      plainText: true,
+    });
+
+    return this.sendEmail({
+      from: "Weekly Workout Reminder <reminder@gigachad.buzz>",
+      to: payload.email,
+      subject: "Weekly Workout Reminder",
+      html: emailHtml,
+      text: emailtext,
+    });
+  }
 }
 
-export { sendWorkoutReminder };
+export { Email };

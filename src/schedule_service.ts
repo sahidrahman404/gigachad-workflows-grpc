@@ -4,6 +4,8 @@ import { getBaseMilliseconds } from "./utils/getBaseMilliseconds";
 import {
   CreateScheduleRequest,
   ScheduleService,
+  ScheduleServiceClientImpl,
+  UpdateScheduleRequest,
 } from "./generated/proto/gigachad/v1/schedule";
 import { ReminderServiceClientImpl } from "./generated/proto/gigachad/v1/reminder";
 
@@ -14,13 +16,27 @@ class ScheduleSvc implements ScheduleService {
     for (const schedule of schedules) {
       if (addReminderRequest) {
         const base = getBaseMilliseconds(schedule);
-        const client = new ReminderServiceClientImpl(ctx);
-        await ctx.delayedCall(
-          () => client.addReminder({ ...addReminderRequest }),
-          base,
-        );
+        const client = new ReminderServiceClientImpl(ctx.grpcChannel());
+        await ctx
+          .grpcChannel()
+          .delayedCall(
+            () => client.addReminder({ ...addReminderRequest }),
+            base,
+          );
       }
     }
+    return {};
+  }
+  async updateSchedule(request: UpdateScheduleRequest): Promise<Empty> {
+    const ctx = restate.useKeyedContext(this);
+    const scheduleClient = new ScheduleServiceClientImpl(ctx.grpcChannel());
+    const reminderClient = new ReminderServiceClientImpl(ctx.grpcChannel());
+    await reminderClient.removeReminder({
+      scheduleId: request.oldReminderId,
+    });
+
+    if (request.createScheduleRequest)
+      await scheduleClient.createSchedule(request.createScheduleRequest);
     return {};
   }
 }

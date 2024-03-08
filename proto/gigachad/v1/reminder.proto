@@ -14,7 +14,7 @@ service ReminderService {
 }
 
 message AddReminderRequest {
-  string schedule_id = 1 [ (dev.restate.ext.field) = KEY ];
+  string reminder_id = 1 [ (dev.restate.ext.field) = KEY ];
   string user_last_name = 2;
   string workout_name = 3;
   string email = 4;
