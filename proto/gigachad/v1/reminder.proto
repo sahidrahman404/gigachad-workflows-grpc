@@ -9,8 +9,21 @@ service ReminderService {
 
   option (dev.restate.ext.service_type) = KEYED;
 
+  rpc CreateReminders(CreateRemindersRequest) returns (google.protobuf.Empty) {};
+  rpc UpdateReminders(UpdateRemindersRequest) returns (google.protobuf.Empty) {};
   rpc AddReminder(AddReminderRequest) returns (google.protobuf.Empty) {};
   rpc RemoveReminder(RemoveReminderRequest) returns (google.protobuf.Empty) {};
+}
+
+message CreateRemindersRequest {
+  string reminder_id = 1 [ (dev.restate.ext.field) = KEY ];
+  repeated Schedule schedules = 2;
+  AddReminderRequest add_reminder_request = 3;
+}
+
+message UpdateRemindersRequest {
+  string old_reminder_id = 1 [ (dev.restate.ext.field) = KEY];
+  CreateRemindersRequest create_reminders_request = 2;
 }
 
 message AddReminderRequest {
@@ -35,5 +48,12 @@ message Set {
 };
 
 message RemoveReminderRequest {
-  string schedule_id = 1 [ (dev.restate.ext.field) = KEY ];
+  string reminder_id = 1 [ (dev.restate.ext.field) = KEY ];
+};
+
+message Schedule {
+  int32 day = 1;
+  int32 second = 2;
+  int32 minute = 3;
+  int32 hour = 4;
 };

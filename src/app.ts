@@ -1,22 +1,15 @@
 import * as restate from "@restatedev/restate-sdk";
 
 import { ReminderSvc } from "./reminder_service";
-import { ScheduleSvc } from "./schedule_service";
-import { protoMetadata as protoReminder } from "./generated/proto/gigachad/v1/reminder";
-import { protoMetadata as protoSchedule } from "./generated/proto/gigachad/v1/schedule";
+import { protoMetadata } from "./generated/proto/gigachad/v1/reminder";
 
 // Create the Restate server to accept requests to the service(s)
 restate
   .endpoint()
   .bindService({
-    service: "ScheduleService", // public name of the service, must match the name in the .proto definition
-    instance: new ScheduleSvc(), // the instance of the implementation
-    descriptor: protoSchedule, // the metadata (types, interfaces, ...) captured by the gRPC/protobuf compiler
-  })
-  .bindService({
     service: "ReminderService",
     instance: new ReminderSvc(),
-    descriptor: protoReminder,
+    descriptor: protoMetadata,
   })
   .listen(9080);
 
