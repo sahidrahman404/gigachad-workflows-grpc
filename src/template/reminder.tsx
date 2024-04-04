@@ -58,7 +58,7 @@ function WorkoutReminderEmail({
                     Duration
                   </Column>
                 </Row>
-                {sets.map(({ reps, kg, duration }, i) => {
+                {sets.map(({ reps, weight, duration }, i) => {
                   return (
                     <Row style={{ marginTop: "12px" }} key={i}>
                       <Column style={{ width: "25%" }}>{i + 1}</Column>
@@ -66,7 +66,7 @@ function WorkoutReminderEmail({
                         {reps === 0 ? "-" : reps}
                       </Column>
                       <Column style={{ width: "25%" }}>
-                        {kg === 0 ? "-" : kg}
+                        {weight === 0 ? "-" : weight}
                       </Column>
                       <Column style={{ width: "25%" }}>
                         {duration === "" ? "-" : duration}
