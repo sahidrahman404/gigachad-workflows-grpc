@@ -21,9 +21,9 @@ message CreateRemindersRequest {
   AddReminderRequest add_reminder_request = 3;
 }
 
-enum UserPreference {
-  USER_PREFERENCE_METRIC_UNSPECIFIED = 0;
-  USER_PREFERENCE_IMPERIAL = 1;
+enum Unit {
+  UNIT_METRIC_UNSPECIFIED = 0;
+  UNIT_IMPERIAL = 1;
 }
 
 message UpdateRemindersRequest {
@@ -37,7 +37,7 @@ message AddReminderRequest {
   string workout_name = 3;
   string email = 4;
   repeated Exercise exercises = 5;
-  UserPreference user_preference = 6;
+  Unit unit = 6;
 };
 
 message Exercise {
