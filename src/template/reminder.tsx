@@ -17,7 +17,9 @@ function WorkoutReminderEmail({
   userLastName,
   workoutName,
   exercises,
+  unit,
 }: AddReminderRequest) {
+  const weightUnit = unit !== 0 ? "lb" : "kg";
   return (
     <Html>
       <Head />
@@ -52,7 +54,7 @@ function WorkoutReminderEmail({
                     Reps
                   </Column>
                   <Column style={{ width: "25%", fontWeight: "bold" }}>
-                    Kg
+                    Weight
                   </Column>
                   <Column style={{ width: "25%", fontWeight: "bold" }}>
                     Duration
@@ -66,7 +68,7 @@ function WorkoutReminderEmail({
                         {reps === 0 ? "-" : reps}
                       </Column>
                       <Column style={{ width: "25%" }}>
-                        {weight === 0 ? "-" : weight}
+                        {weight === 0 ? "-" : `${weight} ${weightUnit}`}
                       </Column>
                       <Column style={{ width: "25%" }}>
                         {duration === "" ? "-" : duration}
