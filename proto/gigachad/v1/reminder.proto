@@ -16,9 +16,14 @@ service ReminderService {
 }
 
 message CreateRemindersRequest {
-  string reminder_id = 1 [ (dev.restate.ext.field) = KEY ];
+  string user_id = 1 [ (dev.restate.ext.field) = KEY ];
   repeated Schedule schedules = 2;
   AddReminderRequest add_reminder_request = 3;
+}
+
+enum UserPreference {
+  USER_PREFERENCE_METRIC_UNSPECIFIED = 0;
+  USER_PREFERENCE_IMPERIAL = 1;
 }
 
 message UpdateRemindersRequest {
@@ -32,6 +37,7 @@ message AddReminderRequest {
   string workout_name = 3;
   string email = 4;
   repeated Exercise exercises = 5;
+  UserPreference user_preference = 6;
 };
 
 message Exercise {
@@ -42,9 +48,9 @@ message Exercise {
 
 message Set {
   int32 reps = 1;
-  int32 kg = 2;
+  int32 weight = 2;
   string duration = 3;
-  int32 km = 4;
+  int32 length = 4;
 };
 
 message RemoveReminderRequest {
