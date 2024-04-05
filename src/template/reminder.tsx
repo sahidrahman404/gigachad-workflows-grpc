@@ -68,7 +68,7 @@ function WorkoutReminderEmail({
                         {reps === 0 ? "-" : reps}
                       </Column>
                       <Column style={{ width: "25%" }}>
-                        {weight === 0 ? "-" : `${weight} ${weightUnit}`}
+                        {displayWeight(weight, unit)}
                       </Column>
                       <Column style={{ width: "25%" }}>
                         {duration === "" ? "-" : duration}
@@ -128,5 +128,21 @@ const text = {
   fontSize: "16px",
   lineHeight: "24px",
 };
+
+const OneKgInLb = 2.20462;
+
+function convertKgToPound(weight: number): number {
+  return Math.round(weight * OneKgInLb);
+}
+
+function displayWeight(weight: number, unit: number): string {
+  return weight
+    ? new Intl.NumberFormat("en-US", {
+        style: "unit",
+        unit: unit !== 0 ? "kilogram" : "pound",
+        unitDisplay: "long",
+      }).format(unit !== 0 ? convertKgToPound(weight) : weight)
+    : "-";
+}
 
 export { WorkoutReminderEmail };
