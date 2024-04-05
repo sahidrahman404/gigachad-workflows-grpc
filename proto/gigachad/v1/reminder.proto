@@ -48,9 +48,9 @@ message Exercise {
 
 message Set {
   int32 reps = 1;
-  int32 weight = 2;
+  double weight = 2;
   string duration = 3;
-  int32 length = 4;
+  double length = 4;
 };
 
 message RemoveReminderRequest {
