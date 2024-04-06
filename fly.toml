@@ -1,0 +1,28 @@
+# fly.toml app configuration file generated for gigachad-restate-worker on 2024-04-06T14:01:26+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'gigachad-restate-worker'
+primary_region = 'sin'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 9080
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[services.ports]]
+    port = 9080
+    handlers = ["tls"]
+    tls_options = { "alpn" = ["h2"] }
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  size = 'shared-cpu-1x'
