@@ -16,13 +16,14 @@ primary_region = 'sin'
 
 [[services.ports]]
     port = 9080
-    handlers = ["tls"]
-    tls_options = { "alpn" = ["h2"] }
 
   [services.concurrency]
     type = 'connections'
     hard_limit = 25
     soft_limit = 20
+
+  [services.ports.http_options]
+    h2_backend = true
 
 [[vm]]
   size = 'shared-cpu-1x'
