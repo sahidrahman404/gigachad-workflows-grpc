@@ -47,7 +47,6 @@ class ReminderSvc implements ReminderService {
             () => reminderClient.addReminder(addReminderRequest),
             baseMilliseconds,
           );
-        ctx.console.info("reminder created");
       }
     }
     return {};
