@@ -23,7 +23,7 @@ function WorkoutReminderEmail({
   return (
     <Html>
       <Head />
-      <Preview>Log in with this magic link</Preview>
+      <Preview>Weekly Workout Reminder</Preview>
       <Body>
         <Container>
           <Text style={{ ...text }}>Hi {userLastName},</Text>
