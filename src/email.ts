@@ -37,7 +37,7 @@ class Email {
     });
 
     return this.sendEmail({
-      from: "Weekly Workout Reminder <reminder@gigachad.buzz>",
+      from: "Weekly Workout Reminder <reminder@wellup.fyi>",
       to: payload.email,
       subject: "Weekly Workout Reminder",
       html: emailHtml,

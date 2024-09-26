@@ -115,7 +115,7 @@ function WorkoutReminderEmail({
             Keep up the amazing work, and let's make today's workout count!
           </Text>
           <Text style={{ ...text }}>Best regards, </Text>
-          <Text style={{ ...text }}>The Gigachad team</Text>
+          <Text style={{ ...text }}>The Wellup team</Text>
         </Container>
       </Body>
     </Html>
